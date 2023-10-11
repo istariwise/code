@@ -1,15 +1,17 @@
-#include <stdio.h>
-#include <math.h>
+黑白棋：
 
-  int main(){
-
-  
-
-
-
-
-
-
-
-
-  }
+    #include <stdio.h>
+    #include <math.h>
+    
+      int main(){
+    
+      
+    
+    
+    
+    
+    
+    
+    
+    
+      }
