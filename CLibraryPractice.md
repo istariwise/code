@@ -1,4 +1,4 @@
-# code
+# code 1
 練習math.h
 
 
@@ -17,3 +17,9 @@
               scanf("please enter first coordinater")
           
           }
+
+
+
+
+# code 2
+練習assert.h
