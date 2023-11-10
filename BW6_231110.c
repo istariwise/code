@@ -28,8 +28,7 @@ void checkWon();
                         {0, 0, 0, 1, 0, 0, 0, 0},
                         {0, 0, 0, 0, 0, 0, 0, 0},
                         {0, 0, 0, 0, 0, 0, 0, 0}};
-
-    
+  
     //紀錄電腦人可選擇步數
     int robtRec[][6] = {{0,0,0,0,0,0}}; //落子座標i,j ; 翻轉棋數 count ; 方位 dy,dx ; 總共翻轉棋數 count
 
@@ -77,14 +76,10 @@ void checkWon();
                     h += dy;
                     k += dx;
                     chess[h][k] = BW;
-                }
-            }
-
-        }
+                }}}
         PrintChess();
         cleanChess();
     }
-
 
 //檢查誰贏了
     void checkWon()
@@ -108,23 +103,20 @@ void checkWon();
         }
     }
 
-
 //人 選擇下子
     void chooseCheck()
     {
         int chooseNumber = 0;
         int chooseChessPiece[stepNum]; //可用的號碼收集並印出號碼
         int m = 1 , p = 1;
-
+        
         printf("You can choose the following number :\n");
-
         for(int n =1 ; n < stepNum ; n++) //可用的號碼收集並印出號碼
         {
             chooseChessPiece[n] = robtRec[n][5]; 
             printf("%d |", chooseChessPiece[n]);
         }
         printf("\n");
-        
         do{
             scanf("%d", &chooseNumber);
             m = 1;
@@ -140,7 +132,6 @@ void checkWon();
                 printf("Please choose the right number again:\n"); //p=1再選一次
             }
         }while(p);
-
         printf("Your choice is number :%d\n", chooseNumber);
         changeChess(chooseNumber);
     }
@@ -173,7 +164,6 @@ void checkWon();
                     //checknull++;
                     return 1;
                 }
-    
     }
 
 // 人或機器人 將可下的位置印出來
