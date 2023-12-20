@@ -25,6 +25,7 @@ int isEmpty(stack_t *stackPtr){
 }
 
 int isFull(stack_t *stackPtr){
-
+     if(stackPtr->top>=100) return 1;
+    return 0;
 }
 
