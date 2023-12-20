@@ -82,7 +82,7 @@ int main(){
 
     //印出座標
     printf("The coordinates of the path are :\n");
-    for(int h=0 ; h <= *n ; h++){
+    for(int h=0 ; h < *n ; h++){
         printf("( %d , %d)\n", mazzpath[h][0], mazzpath[h][1]);
     }
 
