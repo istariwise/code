@@ -1,16 +1,15 @@
-//仿照老師上課內容
+//仿照老師上課內容, 做修改
+//堆疊資料結構的方法
 #include "magic.h"
 
-void stackInit(stack1_t *stackPtr , int size){
-    stackPtr->elements = (axis_t *) malloc(size*sizeof(axis_t));
-}
-
+//放進堆疊一個座標
 void push(stack_t *stackPtr, axis_t element){
     stackPtr->top++;
     stackPtr->elements[stackPtr->top] = element;
     //memcpy(&stack.elements[stack.stack_pointer], &element, sizeof(element));
 }
 
+//取出堆疊一個座標
 axis_t pop(stack_t *stackPtr){
     axis_t temp={-1,-1};
     if(isEmpty(stackPtr)) return temp;
@@ -28,3 +27,4 @@ int isEmpty(stack_t *stackPtr){
 int isFull(stack_t *stackPtr){
 
 }
+
