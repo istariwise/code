@@ -1,12 +1,9 @@
-//仿照老師上課內容
+//仿照老師上課內容 ， 做修改
 #ifndef _MAGIC_H_
 #define _MAGIC_H_
-
 #define M_SIZE 10
-
 #define EQU(p,q)  (p.x==q.x && p.y==q.y)
 
-//#define x NULL
 
 //座標結構  _t表結構
 typedef struct axis {
@@ -20,24 +17,10 @@ typedef struct stack {
     int top;                         //top 堆疊陣列中指著的最後一個欄位的號碼or指標
 }stack_t;
 
-typedef struct stack1 {
-    axis_t *elements;  //跟隔壁同一個名稱？
-    int top;           //top 堆疊陣列中指著的最後一個欄位的號碼or指標
-}stack1_t;
-
-typedef struct axis1 {
-    axis_t p;
-    struct axis1 *next;
-} stackP_t;
-
 //將其他.c檔的副程式名稱放進來
 void push(stack_t *stack, axis_t axis);
 axis_t pop(stack_t *stack);
 int isEmpty(stack_t *stack);
 
-static inline int equ(axis_t *a , axis_t *b){
-    return (a->x == b->x && a->y == b->y);
-}
-
-
 #endif
+
