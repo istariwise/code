@@ -1,6 +1,7 @@
-//仿照老師上課內容, 做修改
-//堆疊資料結構的方法
+//仿照老師上課內容, 做修改,堆疊資料結構的方法
 #include "magic.h"
+
+
 
 //放進堆疊一個座標
 void push(stack_t *stackPtr, axis_t element){
@@ -20,12 +21,11 @@ axis_t pop(stack_t *stackPtr){
 }
 
 int isEmpty(stack_t *stackPtr){
-    if(stackPtr->top==-1) return 1;
+    if(stackPtr->top == -1) return 1;
     return 0;
 }
 
 int isFull(stack_t *stackPtr){
-     if(stackPtr->top>=100) return 1;
+    if(stackPtr->top <= 100) return 1;
     return 0;
 }
-
