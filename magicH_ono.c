@@ -1,4 +1,3 @@
-//仿照老師上課內容，做修改
 //寫成遞迴了，自己想的遞迴很酷
 #include <stdio.h>
 #include <string.h>
