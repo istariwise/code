@@ -1,4 +1,5 @@
 //老師好，之前在趕論文final，抱歉現在開始追。
+#include <stdbool.h>
 #include <math.h>
 #include <assert.h>
 #include <ctype.h>
@@ -8,7 +9,9 @@
 #include <string.h>
 #include <time.h>
 
-// double sqrt(double x) / double pow(double x, double y) 兩點座標的距離
+/*math.h*/
+
+// double sqrt(double x) / double pow(double x, double y)
 void distancexy(){
 
     int x1, y1, x2, y2;
@@ -85,6 +88,23 @@ void Cauchy(){
         printf("As %f < %f ,The result of Cauchy's inequality don't hold \n", y1,y2);
 }
 
+/*------------assert.h--------------*/
+void triangle(){
+    int a,b,c;
+    int t1,t2,t3;
+   
+    printf("Please enter three side lengths of the triangle.\n");
+    scanf("%d,%d,%d", &a,&b,&c);
+    t1=a+b;
+    t2=a+c;
+    t3=b+c;
+    assert(t1 > c); //檢查任兩邊大於第三邊
+    assert(t2 > b);
+    assert(t3 > a);
+    printf("Three side lengths of %d, %d, %d are correst.\n", a,b,c);
+    
+}
+
 
 
 void main(){
@@ -93,5 +113,6 @@ void main(){
     //evenOrOdd();
     //roundDown();
     //roundUP();
-    Cauchy();
+    //Cauchy();
+    triangle();
 }
