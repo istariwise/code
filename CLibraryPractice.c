@@ -89,6 +89,7 @@ void Cauchy(){
 }
 
 /*------------assert.h--------------*/
+//檢查任兩邊大於第三邊
 void triangle(){
     int a,b,c;
     int t1,t2,t3;
@@ -98,7 +99,7 @@ void triangle(){
     t1=a+b;
     t2=a+c;
     t3=b+c;
-    assert(t1 > c); //檢查任兩邊大於第三邊
+    assert(t1 > c); 
     assert(t2 > b);
     assert(t3 > a);
     printf("Three side lengths of %d, %d, %d are correst.\n", a,b,c);
