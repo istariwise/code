@@ -11,7 +11,7 @@
 
 /*math.h*/
 
-// double sqrt(double x) / double pow(double x, double y)
+// double sqrt(double x) / double pow(double x, double y) 兩點座標算距離
 void distancexy(){
 
     int x1, y1, x2, y2;
@@ -26,7 +26,7 @@ void distancexy(){
 
 }
 
-// double fmod(double x, double y)
+// double fmod(double x, double y) 檢查奇偶數
 void evenOrOdd(){
     int x;
     int remainder;
@@ -106,7 +106,46 @@ void triangle(){
     
 }
 
+/*------------ctype.h--------------*/
+//int isupper(int c) int tolower(int c)檢查是大寫→大寫轉小寫
+void upToLower(){
+    int count=0;
+    char enterText[30]={0};
+    printf("Please enter a sentence and change uppercase to lowercase.\n");
+    
+    fgets(enterText, 30, stdin); //stdin由鍵盤輸入之意
 
+    for(int h=0; h<sizeof(enterText) ; h++) //檢查是否有大寫
+        count += isupper(enterText[h]);
+
+    if(count >0){
+        printf("Your sentence is converted :");
+        for(int k=0 ; k<sizeof(enterText) ; k++)
+            enterText[k] = tolower(enterText[k]);
+    }
+    printf("\n");
+    puts(enterText);
+}
+
+//int isupper(int c) int tolower(int c)檢查是小寫→小寫轉大寫
+void lowerToUp(){
+    int count=0;
+    char enterText[30]={0};
+    printf("Please enter a sentence and change lowercase to uppercase.\n");
+    
+    fgets(enterText, 30, stdin); //stdin由鍵盤輸入之意
+
+    for(int h=0; h<sizeof(enterText) ; h++) //檢查是否有小寫
+        count += islower(enterText[h]);
+
+    if(count >0){
+        printf("Your sentence is converted :");
+        for(int k=0 ; k<sizeof(enterText) ; k++)
+            enterText[k] = toupper(enterText[k]);
+    }
+    printf("\n");
+    puts(enterText);
+}
 
 void main(){
 
@@ -115,5 +154,7 @@ void main(){
     //roundDown();
     //roundUP();
     //Cauchy();
-    triangle();
+    //triangle();
+    //upToLower();
+    lowerToUp();
 }
