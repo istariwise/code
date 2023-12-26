@@ -147,6 +147,86 @@ void lowerToUp(){
     puts(enterText);
 }
 
+// isxdigit() 單個檢查是否為十六進位，並修改至正確
+void LegalIPV4(){
+    char ipv4[9]="";
+    char count=0;
+    char check[8]={1};
+    printf("Please enter Hexadecimal IPV4\n");
+    scanf("%8s",ipv4);
+
+    do{
+        count = 0;
+        for(int i=0 ; i<8 ; i++){
+            if(isxdigit(ipv4[i])==0){
+                printf("The %dth charactor isn't right,enter again.\n",i);
+                scanf("%8s",ipv4);
+                check[i] = 0;  //0表示不正確
+                }
+            else
+                check[i] = 1;  //1表示正確輸入16進位
+            
+            count += check[i];
+        }
+        if(count ==8) break;
+    }while(count ==0);
+    printf("The Ip :%s is correct.",ipv4);
+}
+
+//int isalnum(int c)/ void *memset(void *str, int c, size_t n) 檢查密碼是否為字母或數字，並修改正確
+void checkPassword(){
+    char passwordd[10];
+    char count=0;
+    memset(passwordd, 27, 11); //27表示未填的空格
+    printf("Please enter a password containing letters and numbers.\n");
+    scanf("%10s",passwordd);
+
+    for(int i=0 ; i <10 ; i++){
+        if(passwordd[i] == 27)
+            break;
+        else
+            count++; //計算填入的密碼有多長
+    }
+        for(int i=0 ; i<count ; i++){
+            if(isalnum(passwordd[i])==0){
+                printf("The %dth charactor isn't right,enter whole password again.\n",i);
+                scanf("%10s",passwordd);
+                i--;
+                }
+        }
+    printf("The password :%s is correct.",passwordd);
+}
+
+//int ispunct(int c) 密碼第一項要是標點符號
+void checkPassword2(){
+    char passwordd[10]={'a',};
+    char count=0;
+    memset(passwordd, 27, 10); //27表示未填的空格
+    printf("Please enter a password containing letters and numbers and first word must be punctuaion.\n");
+    scanf("%10s",passwordd);
+    
+    for(int i=0 ; i <10 ; i++){
+        if(passwordd[i] == 27)
+            break;
+        else
+            count++; //計算填入的密碼有多長
+    }
+        while(ispunct(passwordd[0])==0){
+            printf("first word must be punctuaion,enter whole password again.\n");
+            scanf("%10s",passwordd);
+        }
+        
+        for(int i=1 ; i<count-1 ; i++){
+            if(isalnum(passwordd[i])==0){
+                printf("The %dth charactor isn't right,enter whole password again.\n",i);
+                scanf("%10s",passwordd);
+                i--;
+                }
+        }
+    printf("The password :%s is correct.",passwordd);
+}
+
+
 void main(){
 
     //distancexy();
@@ -156,5 +236,8 @@ void main(){
     //Cauchy();
     //triangle();
     //upToLower();
-    lowerToUp();
+    //lowerToUp();
+    //LegalIPV4();
+    //checkPassword();
+    checkPassword2();
 }
