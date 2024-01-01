@@ -226,6 +226,31 @@ void checkPassword2(){
     printf("The password :%s is correct.",passwordd);
 }
 
+/*------------stdlib.h--------------*/
+//int atoi(const char *str) 計算三個數字的平均數，將字串轉成整數
+void avgForThree(){
+    char num[30];
+	int numchange[30]={0};
+	int value,value2;
+	char i=0;
+  	float avg;
+
+	setbuf(stdout, NULL);
+
+	while(scanf("%s", num)!=EOF) 
+	{
+        printf("Enter Three-digit integer.")
+        value = atoi(num);
+		for(int i=2; i>=0; i--)
+		{
+			value2 = value % 10;
+			numchange[i] = value % 10;
+			value = (value-value2)/10;
+		}
+		avg = (float)((numchange[0]+numchange[1]+numchange[2])/3);
+		printf("%.6f",avg);
+	}
+}
 
 void main(){
 
@@ -239,5 +264,6 @@ void main(){
     //lowerToUp();
     //LegalIPV4();
     //checkPassword();
-    checkPassword2();
+    //checkPassword2();
+    avgForThree();
 }
