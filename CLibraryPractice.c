@@ -226,6 +226,12 @@ void checkPassword2(){
     printf("The password :%s is correct.",passwordd);
 }
 
+/*------------stdio.h--------------*/
+
+
+/*------------stdint.h--------------*/
+
+
 /*------------stdlib.h--------------*/
 //int atoi(const char *str) 計算三個數字的平均數，將字串轉成整數
 void avgForThree(){
@@ -239,7 +245,7 @@ void avgForThree(){
 
 	while(scanf("%s", num)!=EOF) 
 	{
-        printf("Enter Three-digit integer.")
+        printf("Enter Three-digit integer.");
         value = atoi(num);
 		for(int i=2; i>=0; i--)
 		{
@@ -252,18 +258,62 @@ void avgForThree(){
 	}
 }
 
+//	void srand(unsigned int seed) 隨機產生座標，給定數字範圍
+void randomm(){
+    int N;
+    printf("Determine axis range for 0 to N\n");
+    scanf("%d",&N);
+    srand( time(NULL) ); //設定亂數種子
+    int tr = rand();
+    int ts = rand();
+    int r = tr % N;
+    int s = ts % N;
+    printf("random is %d\n", r);
+    printf("The axis position is (%d , %d)\n", r, s);
+}
+
+
+//	int rand(void) 產生大樂透
+void lotto(){
+    
+}
+
+/*------------string.h--------------*/
+
+/*------------time.h--------------*/
+//time_t time(time_t *seconds) 文字加亂碼
+void mash(){
+    char catch[100] = "I love you.";
+    char mash[100];
+    char *ptr;
+    long ret;
+    printf("Enter a sentence.\n");
+    scanf("%[^\n]",catch);
+    for(int i=0 ; i<strlen(catch) ; i++)
+    {
+        srand( time(NULL) ); //設定亂數種子
+        int tr = rand()%128;
+        mash[i*2] = catch[i];
+        mash[i*2+1] = (int)tr;
+    }
+    printf("原始文字是：|%s|\n",catch);
+    printf("加密的文字是：|%s|\n",mash);
+}
+
 void main(){
 
-    //distancexy();
-    //evenOrOdd();
-    //roundDown();
-    //roundUP();
-    //Cauchy();
-    //triangle();
-    //upToLower();
-    //lowerToUp();
-    //LegalIPV4();
-    //checkPassword();
-    //checkPassword2();
-    avgForThree();
+    //distancexy();     //兩點座標算距離
+    //evenOrOdd();      //檢查奇偶數
+    //roundDown();      //無條件進位到整數第N位(進位到個位，N=1；十位,N=2；百位,N=3;類推N=...)
+    //roundUP();        //無條件捨去到整數第N位(捨去到個位，N=1；十位,N=2；百位,N=3;類推N=...)
+    //Cauchy();         //柯西不等式
+    //triangle();       //檢查任兩邊大於第三邊
+    //upToLower();      //檢查是大寫→大寫轉小寫
+    //lowerToUp();      //檢查是小寫→小寫轉大寫
+    //LegalIPV4();      //單個檢查是否為十六進位，並修改至正確
+    //checkPassword();  //檢查密碼是否為字母或數字，並修改正確
+    //checkPassword2(); //密碼第一項要是標點符號
+    //avgForThree();    //計算三個數字的平均數，將字串轉成整數，保留小數精度6位
+    //randomm();        //隨機產生座標，給定數字範圍
+    mash();             //文字加亂碼
 }
