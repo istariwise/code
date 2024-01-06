@@ -228,6 +228,146 @@ void checkPassword2(){
 
 /*------------stdio.h--------------*/
 
+//FILE *fopen(const char *filename, const char *mode)寫有日期的日記
+void diary(){
+    FILE * fp;
+    char word[100];
+    scanf("%[^\n]",word);
+
+    time_t rawtime;
+    struct tm *info;
+    char buffer[80];
+    time( &rawtime ); 
+    info = localtime( &rawtime );
+    strftime(buffer, 80, "%Y-%m-%d ", info);
+ 
+    fp = fopen ("article.txt", "w+");
+    fprintf(fp, "%s\n", buffer);
+    fprintf(fp, "%s", word);
+    fclose(fp);
+}
+
+//int fclose(FILE *stream) 開完建檔計算英文字數
+void readFileCountWords(){
+    
+    char fileName[100];
+    printf("Enter the file name to open.\n");
+    scanf("%s", fileName);
+    
+    FILE *fp;
+    int c;
+    int wordCount=0;
+    
+    fp = fopen(fileName,"r"); //讀取文章
+    while(1)
+    {
+        c = fgetc(fp);
+        if( feof(fp) )
+        {
+            break ;
+        }
+        printf("%c", c);
+        if(isalpha(c))
+            wordCount++;
+    }
+    printf("\nThe article has %d words.",wordCount);
+    fclose(fp);
+}
+
+//int fprintf(FILE *stream, const char *format, ...)讀檔案並逐行寫入新檔案
+int readAndWrite(){
+
+    char fileName[100];
+    printf("Enter the file name to open.\n");
+    scanf("%s", fileName);
+    
+    FILE *fpread; //讀的文件
+    fpread = fopen(fileName,"r");  //可以直接用陣列名稱const char *filename
+    char strRead[200];
+
+    FILE *fpWrite; //寫入的文件
+    fpWrite = fopen ("copyArticle.txt", "w+");
+
+    if(fpread == NULL) 
+    {
+        perror("Error: ");
+    }
+    while(1)
+    {
+        if( feof(fpread) )
+        { 
+            break ;
+        }
+        if( fgets (strRead, 200, fpread)!=NULL ) 
+        {
+            fprintf(fpWrite, "%s", strRead);
+        }
+    }
+    fclose(fpread);
+    fclose(fpWrite);
+    return 0;
+}
+
+//int fgetc(FILE *stream)讀檔案，逐個字符寫入新檔案
+int RandWByCharacter()
+{
+    int c;
+    char fileName[100];
+    printf("Enter the file name to open.\n");
+    scanf("%s", fileName);
+    
+    FILE *fpread; //讀的文件
+    fpread = fopen(fileName,"r");  //可以直接用陣列名稱const char *filename
+    char strRead[200];
+
+    FILE *fpWrite; //寫入的文件
+    fpWrite = fopen ("copyArticle.txt", "w+");
+
+    if(fpread == NULL) 
+    {
+        perror("Error: ");
+    }
+    while(1)
+    {
+        if( feof(fpread) ){
+            break ;}
+        c = fgetc(fpread);
+        fprintf(fpWrite, "%c", c);
+    }
+    fclose(fpread);
+    fclose(fpWrite);
+    return 0;
+}
+
+
+//char *fgets(char *str, int n, FILE *stream)列印出文件
+void printArticle(){
+
+    char fileName[100];
+    printf("Enter the file name to open.\n");
+    scanf("%s", fileName);
+    
+    FILE *fpread; //讀的文件
+    fpread = fopen(fileName,"r");  //可以直接用陣列名稱const char *filename
+    char strRead[200];
+
+    if(fpread == NULL) 
+    {
+        perror("Error: ");
+    }
+    while(1)
+    {
+        if( feof(fpread) )
+        { 
+            break ;
+        }
+        if( fgets (strRead, 200, fpread)!=NULL ) 
+        {
+            printf("%s",strRead);
+        }
+    }
+    fclose(fpread);
+}
 
 /*------------stdint.h--------------*/
 
@@ -274,8 +414,33 @@ void randomm(){
 
 
 //	int rand(void) 產生大樂透
-void lotto(){
+    void lotto(){
+    time_t t;
+    char ch;
+    int chosee[6]={0};
+    int i=0;
+    int check=0;
+    int tr;
+    srand( time(NULL) ); //設定亂數種子
+    printf("Get Lotto number.\n");
     
+    do{ 
+        check=0;
+        tr = rand()%50;
+        for(int j=0 ; j<=i ; j++)
+        {
+            if(chosee[j] == tr)
+                check++;
+                break;
+        }
+        if(check ==0){
+            chosee[i] = tr;
+            i++;}
+    }while(i < 6);
+
+    printf("Lotto number is :\n");
+    for(int k=0 ; k<6 ; k++)
+        printf("%d ", chosee[k]); 
 }
 
 /*------------string.h--------------*/
@@ -300,6 +465,29 @@ void mash(){
     printf("加密的文字是：|%s|\n",mash);
 }
 
+//clock_t clock(void) 比較同一篇文章 逐行or逐字元 寫入檔案執行速度
+void compareSpeed()
+{
+   clock_t start_t, end_t;
+   double total_t;
+   int i,j;
+
+   start_t = clock();
+   //以下放計算程式跑了多少時間---------
+   i = readAndWrite();
+   end_t = clock(); 
+   total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC;
+   printf("CPU total time :%f\n", total_t  );
+
+   start_t = clock();
+   //以下放計算程式跑了多少時間---------
+   j = RandWByCharacter();
+   end_t = clock(); 
+   total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC;
+   printf("CPU total time :%f\n", total_t  );
+
+}
+
 void main(){
 
     //distancexy();     //兩點座標算距離
@@ -315,5 +503,12 @@ void main(){
     //checkPassword2(); //密碼第一項要是標點符號
     //avgForThree();    //計算三個數字的平均數，將字串轉成整數，保留小數精度6位
     //randomm();        //隨機產生座標，給定數字範圍
-    mash();             //文字加亂碼
+    //mash();           //文字加亂碼
+    //lotto();          //大樂透產生機
+    //diary();          //寫日記有日期的創文字檔
+    //readFileCountWords();//開完建檔計算英文字數(scanf輸入開啟的檔名)
+    //readAndWrite();     //讀檔案並逐行寫入新檔案(scanf輸入開啟的檔名)
+    //printArticle();     //列印出文件(scanf輸入開啟的檔名)
+    //RandWByCharacter();   //讀檔案，逐個字符寫入新檔案(%c中文字會變亂碼)
+    //compareSpeed();         //比較同一篇文章 逐行or逐字元 寫入檔案執行速度(scanf輸入開啟的檔名)
 }
