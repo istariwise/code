@@ -9,6 +9,7 @@
 #include <string.h>
 #include <time.h>
 
+
 /*math.h*/
 
 // double sqrt(double x) / double pow(double x, double y) 兩點座標算距離
@@ -443,6 +444,35 @@ void randomm(){
         printf("%d ", chosee[k]); 
 }
 
+//int abs(int x) 算距離一維座標
+void disOneAxis()
+{
+    int x,y;
+    int distance;
+    long long size;
+    size = pow(2,32)/2; 
+    printf("Enter two numbers in the range %d to %d\n",size,-1*size);
+    printf("Separate two numbers with space.\n");
+    scanf("%d%d",&x,&y);
+    distance = x-y;
+    distance = abs(distance);
+    printf("The distance is : %d",distance);
+}
+
+//div_t div(int numer, int denom)除法與驗算
+void Division()
+{
+    div_t output;
+    int x,y;
+    
+    printf("Enter Divisor and dividend ,Separate two numbers with space.\n");
+    scanf("%d%d",&x,&y);
+
+    output = div(x, y);
+    printf("%d ÷ %d = %d.....%d\n",x,y, output.quot,output.rem);
+    printf("乘法驗算 : ( %d - %d ) = %d x %d",x,output.rem,y,output.quot);
+}
+
 /*------------string.h--------------*/
 
 /*------------time.h--------------*/
@@ -485,8 +515,67 @@ void compareSpeed()
    end_t = clock(); 
    total_t = (double)(end_t - start_t) / CLOCKS_PER_SEC;
    printf("CPU total time :%f\n", total_t  );
-
 }
+
+//char *ctime(const time_t *timer) 顯示現在時間，並將年修改到前面
+void currentTime()
+{
+    char times[40];
+    char times2[40];
+    time_t curtime;
+    time(&curtime);  //time()是放秒數
+    strcpy(times , ctime(&curtime));
+    for(int i=0 ; i<=3 ; i++)
+        times2[i] = times[i+20];
+    for(int j=3 ; j<=18 ; j++)
+    {
+        times2[j+1] = times[j];
+    }
+   printf("Current Time is: %s", times2);
+}
+
+//struct tm *gmtime(const time_t *timer) CMT時間 台灣美國倫敦
+#define BST (+1)
+#define NST (+8)
+#define EST (-8)
+void CMTtime()
+{
+ 
+   time_t rawtime;
+   struct tm *info;
+ 
+   time(&rawtime); //取得格林威治時間
+   info = gmtime(&rawtime );
+   
+   printf("格林威治時間：\n");
+   printf("Britain : %2d:%02d\n", (info->tm_hour+BST)%24, info->tm_min);
+   printf(" Taiwan : %2d:%02d\n", (info->tm_hour+NST)%24, info->tm_min);
+   printf("America : %2d:%02d\n", (info->tm_hour+EST)%24, info->tm_min);
+}
+
+//struct tm *localtime(const time_t *timer) 顯示當地時間，並將年修改到前面
+void localTime()
+{
+    char times[40];
+    char times2[40];
+    time_t curtime;
+    struct tm *info;
+    time(&curtime);  //time()是放秒數
+
+    info = localtime( &curtime );
+
+    strcpy(times , asctime(info)); //是一個函數，其參數為struct tm
+    
+    for(int i=0 ; i<=3 ; i++)
+        times2[i] = times[i+20];
+    for(int j=3 ; j<=18 ; j++)
+    {
+        times2[j+1] = times[j];
+    }
+   printf("Local Time is: %s", times2);
+}
+
+
 
 void main(){
 
@@ -509,6 +598,11 @@ void main(){
     //readFileCountWords();//開完建檔計算英文字數(scanf輸入開啟的檔名)
     //readAndWrite();     //讀檔案並逐行寫入新檔案(scanf輸入開啟的檔名)
     //printArticle();     //列印出文件(scanf輸入開啟的檔名)
-    //RandWByCharacter();   //讀檔案，逐個字符寫入新檔案(%c中文字會變亂碼)
-    //compareSpeed();         //比較同一篇文章 逐行or逐字元 寫入檔案執行速度(scanf輸入開啟的檔名)
+    //RandWByCharacter(); //讀檔案，逐個字符寫入新檔案(%c中文字會變亂碼)
+    //compareSpeed();     //比較同一篇文章 逐行or逐字元 寫入檔案執行速度(scanf輸入開啟的檔名)
+    //currentTime();      //顯示現在時間，並將年修改到前面
+    //CMTtime();          //CMT時間 台灣美國倫敦
+    //localTime();        //顯示當地時間，並將年修改到前面
+    //disOneAxis();       //算距離一維座標
+    Division();         //除法與驗算
 }
