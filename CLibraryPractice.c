@@ -1,4 +1,4 @@
-//老師好，之前在趕論文final，抱歉現在開始追，完成。
+//老師好，之前在趕論文final，抱歉現在開始追。
 #include <stdbool.h>
 #include <math.h>
 #include <assert.h>
@@ -554,6 +554,30 @@ void disOneAxis()
     printf("The distance is : %d",distance);
 }
 
+//void *calloc(size_t nitems, size_t size) 將動態記憶體陣列的字串顯示兩種型態
+void strDisTwoType(){
+    char input[50];
+    char *strArr;
+    int arrLen = 50;
+    int i;  //為什麼allocation裡的for的i都事先宣告?
+
+    strArr = calloc( arrLen, sizeof(char) );  //strArr取得記憶體,可視為陣列，初始化為0
+    if( strArr == NULL )
+        fprintf(stderr, "Can't get required memory\n"); //將錯誤訊息寫入File *stderr
+
+    printf("Enter a sentence within fifty words.\n");
+    scanf("%[^\n]", input);
+    strcpy(strArr,input);
+
+    for (i = 0; i < strlen(strArr); ++i) {
+        printf("%d ", strArr[i]);
+    }
+    printf("\n");
+    puts(strArr);
+    free(strArr);
+
+}
+
 //div_t div(int numer, int denom)除法與驗算
 void Division()
 {
@@ -566,6 +590,64 @@ void Division()
     output = div(x, y);
     printf("%d ÷ %d = %d.....%d\n",x,y, output.quot,output.rem);
     printf("乘法驗算 : ( %d - %d ) = %d x %d",x,output.rem,y,output.quot);
+}
+//double strtod(const char *str, char **endptr) 計算班級的成績平均數
+void gradeAvg(){
+    char str[30];
+    char *ptr;
+    double ret;
+    char n;
+    double avg;
+
+    printf("Enter class size\n");
+    scanf("%d",&n);
+    for(int i=0 ; i<n ;i++)
+    {
+        printf("Enter the %dth student’s grade.\n",i+1);
+        scanf("%s",str);
+        ret = strtod(str, &ptr);
+        avg += ret;
+    }
+    avg = avg/n;
+    printf("Class average of grade is %lf\n", avg);
+}
+
+//long int strtol(const char *str, char **endptr, int base)16進位 字串轉 長整數
+void str16ToInt(){
+    char *endptr;
+    long int num;
+    char input[10];
+    char str[10] = {'\0'};
+    char x16[10] = {'\0'};
+
+    printf("Enter a hexadecimal number within 10 digits.\n");
+    scanf("%s",input);
+
+    strcpy(str, input); //123放入str
+    strcpy(x16,"0x");
+    strcat(x16 , str);  //ox123: 組合成16進位，但為字串
+    puts(x16);
+
+    num = strtol(x16, &endptr, 0); //如果寫0，會根據字串前綴做判斷
+
+    if (*endptr != '\0') {
+        printf("String tansfer to INT False.\n");
+    } else {
+        printf("Transfer is: %ld\n", num); //結果0x123是轉成10進位數291
+    }
+}
+
+//int system(const char *command) 操作命令題字元 輸入指令
+void command(){
+
+    char command[50];
+    char input[50];
+    printf("輸入命令提示字元的指令.\n");
+    scanf("%s",input);
+
+    strcpy( command, input );
+    system(command);
+
 }
 
 /*------------string.h--------------*/
@@ -850,6 +932,9 @@ void main(){
     //CMTtime();          //CMT時間 台灣美國倫敦
     //localTime();        //顯示當地時間，並將年修改到前面
     //disOneAxis();       //算距離一維座標
+    //strDisTwoType();    //將動態記憶體陣列的字串顯示兩種型態
     //Division();         //除法與驗算
-    
+    //gradeAvg();         //計算班級成績的平均數
+    //str16ToInt();       //16進位 字串轉 長整數
+    //command();          //操作命令題字元 輸入指令
 }
