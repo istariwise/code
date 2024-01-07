@@ -1,4 +1,4 @@
-//老師好，之前在趕論文final，抱歉現在開始追。
+//老師好，之前在趕論文final，抱歉現在開始追，完成。
 #include <stdbool.h>
 #include <math.h>
 #include <assert.h>
@@ -89,8 +89,9 @@ void Cauchy(){
         printf("As %f < %f ,The result of Cauchy's inequality don't hold \n", y1,y2);
 }
 
-/*------------assert.h--------------*/
-//檢查任兩邊大於第三邊
+/*------------assert.h-只有一個函式assert()-------------*/
+//又說是巨集
+//void assert(int expression) 檢查任兩邊大於第三邊 
 void triangle(){
     int a,b,c;
     int t1,t2,t3;
@@ -105,6 +106,20 @@ void triangle(){
     assert(t3 > a);
     printf("Three side lengths of %d, %d, %d are correst.\n", a,b,c);
     
+}
+//檢查檔案是否可以開啟
+void checkFileOp(void)
+{
+    
+    char fileName[100];
+    printf("Enter the file name to open.\n");
+    scanf("%s", fileName);
+
+    FILE *fd;
+    fd = fopen (fileName, "r");
+    assert (fd);
+    printf("File can open.");
+    fclose(fd);
 }
 
 /*------------ctype.h--------------*/
@@ -371,7 +386,87 @@ void printArticle(){
 }
 
 /*------------stdint.h--------------*/
+//無符號整數 指定 巨集處理整數大小(維基修改)
+void uintSize(){
 
+    //無符號整數 指定 巨集處理整數大小  
+    uint8_t ux8 = UINT8_C(8);;
+    uint16_t ux16 = UINT16_C(16);
+    uint32_t ux32 = UINT32_C(16);
+    uint64_t ux64 = UINT64_C(16);
+
+    printf("%lu\n",sizeof(ux8));
+    printf("%ld\n",sizeof(ux16));
+    printf("%lu\n",sizeof(ux32));
+    printf("%ld\n",sizeof(ux64));
+}
+
+//整數常量巨集(維基修改),印出值
+void intMaxLeast(){
+
+   //使用巨集 給值
+    intmax_t ymax = INTMAX_C(3490);   //INTMAX_C(value)把有符號整型值 value 擴展以適應數據類型 intmax_t
+    uintmax_t uymax = UINTMAX_C(3490);
+    int_least8_t z8least= INT8_C(128);  //INTN_C(value) 把有符號整型值 value 擴展以適應數據類型 int_leastN_t
+    uint_least8_t uz8least= UINT8_C(128);
+    int_least16_t zl16east= INT16_C(256);
+    uint_least16_t uz16least= UINT16_C(256);
+
+    printf("%ld , %ld\n",sizeof(ymax) , ymax);
+    printf("%lu , %lu\n",sizeof(uymax) , uymax);
+    printf("%ld , %ld\n",sizeof(z8least) , z8least);
+    printf("%lu , %lu\n",sizeof(uz8least) , uz8least);
+    printf("%ld , %ld\n",sizeof(zl16east) , zl16east);
+    printf("%lu , %lu\n",sizeof(uz16least) , uz16least);
+}
+//最快速的整數型態 (維基修改),印出值
+void intfast(){
+    //使用巨集 給值
+    int_fast8_t xf8= INT8_C(128);  //位寬不少於指定值的最快速的整型
+    uint_fast8_t xuf8= UINT8_C(128);
+    int_fast16_t xf16= INT16_C(256);
+    uint_fast16_t xuf16= UINT16_C(256);
+    int_fast32_t xf32= INT16_C(512);
+    uint_fast32_t xuf32= UINT16_C(512);
+
+    printf("%ld , %ld\n",sizeof(xf8) , xf8);
+    printf("%lu , %lu\n",sizeof(xuf8) , xuf8);
+    printf("%ld , %ld\n",sizeof(xf16) , xf16);
+    printf("%lu , %lu\n",sizeof(xuf16) , xuf16);
+    printf("%ld , %ld\n",sizeof(xf32) , xf32);
+    printf("%lu , %lu\n",sizeof(xuf32) , xuf32);
+}
+
+//指標的整數型態 (維基修改),印出值
+void intPtr(){
+
+    //指標的整數型態
+    intptr_t ptr= INT8_C(128);    //是 long int
+    uintptr_t ptru= UINT8_C(128); //是 long unsigned int
+    intptr_t ptr2= INT16_C(256);  
+    uintptr_t ptru2= UINT16_C(256);
+
+    printf("%ld , %ld\n",sizeof(ptr) , ptr);
+    printf("%lu , %lu\n",sizeof(ptru) , ptru);
+    printf("%ld , %ld\n",sizeof(ptr2) , ptr2);
+    printf("%lu , %lu\n",sizeof(ptru2) , ptru2);
+
+}
+//有符號整數(維基修改),印出值
+void intSize(){
+
+    //有符號整數 指定 巨集處理整數大小  
+    int8_t x8 = INT8_C(127); //128 will overflow
+    int16_t x16 = INT16_C(32767); //(2^15 -1) 32768 will overflow
+    int32_t x32 = INT32_C(512);
+    int64_t x64 = INT64_C(1024);
+
+    printf("%ld , %ld\n",sizeof(x8) , x8);
+    printf("%ld , %ld\n",sizeof(x16) , x16);
+    printf("%ld , %ld\n",sizeof(x32) , x32);
+    printf("%ld , %ld\n",sizeof(x64) , x64);
+
+}
 
 /*------------stdlib.h--------------*/
 //int atoi(const char *str) 計算三個數字的平均數，將字串轉成整數
@@ -474,6 +569,146 @@ void Division()
 }
 
 /*------------string.h--------------*/
+
+//void *memcpy(void *str1, const void *str2, size_t n)
+//將檔案每行前兩個文字覆蓋 "@@""
+void starOnText()
+{
+    char fileName[100];
+    printf("Enter the file name to open.\n");
+    scanf("%s", fileName);
+    
+    FILE *fpread; //讀的文件
+    fpread = fopen(fileName,"r");  //可以直接用陣列名稱const char *filename
+    char strRead[200];
+    
+    FILE *fpWrite; //寫入的文件
+    fpWrite = fopen ("copyArticle.txt", "w+");
+
+    char src[] = "@@";
+
+    if(fpread == NULL) 
+    {
+        perror("Error: ");
+    }
+    while(1)
+    {
+        if( feof(fpread) )
+            break ;
+        if( fgets (strRead, 200, fpread)!=NULL ) 
+        {
+            memcpy(strRead, src, strlen(src)); //文件每行前兩字改成@@
+            fprintf(fpWrite, "%s", strRead);
+        }
+    }
+    fclose(fpread);
+    fclose(fpWrite);
+}
+
+//void *memset(void *str, int c, size_t n) 將句子搜尋關鍵字並覆蓋space
+void textOnspace()
+{
+    char text[] ="Scholar John et al said: There is evidence that obese people are more likely to have high blood pressure and diabetes.";
+    char str[200];
+    
+    strcpy(str, text);
+
+    for(int i=0 ; i<strlen(str) ; i++)
+    {
+        if(str[i]=='e' && str[i+1]=='t' && str[i+2]==' ' && str[i+3]=='a' && str[+4]=='l')    
+            {
+                memset(str,' ',i+5); //搜尋 et al 覆蓋space
+            }
+    }
+    puts(str);
+
+}
+
+//char *strrchr(const char *str, int c) 輸入你的信箱，會輸出你的帳號
+void findAccount()
+{
+    int account;
+    char str[100];
+    printf("Enter your E-mail, and display your account.\n");
+    scanf("%s",str);
+    const char ch = '@';
+    char *ret;
+    
+    ret = strrchr(str, ch);
+    account = (int)(ret - str); //陣列@的記憶體位址-第一位記憶體位置
+    printf("Account is :");
+    for(int i=0 ; i<account ; i++)
+        printf("%c",str[i]);
+}
+
+//int strncmp(const char *str1, const char *str2, size_t n) 開啟兩文件比較文字內容是否全相等
+void compareTwofile()
+{
+    char check=0;
+    int ret;
+    
+    char fileName[100];
+    printf("Enter the first file name to open.\n");
+    scanf("%s", fileName);
+    
+    FILE *fpread; //讀的文件1
+    fpread = fopen(fileName,"r");  //可以直接用陣列名稱const char *filename
+    char strRead[200];
+    
+    char fileName2[100];
+    printf("Enter the second file name to open.\n");
+    scanf("%s", fileName2);
+
+    FILE *fpread2; //讀的文件2
+    fpread2 = fopen(fileName2,"r");  //可以直接用陣列名稱const char *filename
+    char strRead2[200];
+
+    if(fpread == NULL || fpread2 == NULL) 
+        perror("Error: ");
+        
+    while(check ==0)
+    {
+        if( feof(fpread) )
+            break ;
+        if( fgets (strRead, 200, fpread)!=NULL && fgets (strRead2, 200, fpread2)!=NULL) 
+        {
+            ret = strncmp(strRead, strRead2, strlen(strRead));
+            if(ret == 0)
+                continue;
+            else
+                check++;
+        }
+    }
+    fclose(fpread);
+    fclose(fpread2);
+
+    if(check == 0)
+        printf("The contents of two Text are equal.");
+    else
+        printf("The contents of two Text arn't equal.");
+
+}
+
+//char *strncpy(char *dest, const char *src, size_t n)找信箱的帳號
+void findMail()
+{
+    char dest[20];
+    memset(dest, '\0', sizeof(dest));
+    
+    int account;
+    char str[100];
+    printf("Enter your E-mail, and display your account.\n");
+    scanf("%s",str);
+    const char ch = '@';
+    char *ret;
+    
+    ret = strrchr(str, ch);
+    account = (int)(ret - str); //陣列@的記憶體位址-第一位記憶體位置
+
+    printf("Account is : ");
+    strncpy(dest, str, account);
+    printf("%s",dest);
+}
 
 /*------------time.h--------------*/
 //time_t time(time_t *seconds) 文字加亂碼
@@ -585,6 +820,7 @@ void main(){
     //roundUP();        //無條件捨去到整數第N位(捨去到個位，N=1；十位,N=2；百位,N=3;類推N=...)
     //Cauchy();         //柯西不等式
     //triangle();       //檢查任兩邊大於第三邊
+    //checkFileOp();    //檔案是否可以開啟(scanf輸入開啟的檔名)
     //upToLower();      //檢查是大寫→大寫轉小寫
     //lowerToUp();      //檢查是小寫→小寫轉大寫
     //LegalIPV4();      //單個檢查是否為十六進位，並修改至正確
@@ -599,10 +835,21 @@ void main(){
     //readAndWrite();     //讀檔案並逐行寫入新檔案(scanf輸入開啟的檔名)
     //printArticle();     //列印出文件(scanf輸入開啟的檔名)
     //RandWByCharacter(); //讀檔案，逐個字符寫入新檔案(%c中文字會變亂碼)
+    //uintSize();         //無符號整數 指定 巨集處理整數大小
+    //intMaxLeast();      //整數常量巨集(維基修改),印出值
+    //intfast();          //最快速的整數型態 (維基修改),印出值
+    //intPtr();           //指標的整數型態 (維基修改),印出值
+    //intSize();          //有符號整數(維基修改),印出值
     //compareSpeed();     //比較同一篇文章 逐行or逐字元 寫入檔案執行速度(scanf輸入開啟的檔名)
+    //starOnText();       //將檔案每行前兩個文字覆蓋 "@@""
+    //textOnspace();      //將句子搜尋關鍵字並覆蓋space
+    //findAccount();      //輸入你的信箱，會輸出你的帳號 by strrchr()
+    //compareTwofile();   //開啟兩文件比較文字內容是否全相等
+    //findMail();         //找信箱的帳號 by strncpy()
     //currentTime();      //顯示現在時間，並將年修改到前面
     //CMTtime();          //CMT時間 台灣美國倫敦
     //localTime();        //顯示當地時間，並將年修改到前面
     //disOneAxis();       //算距離一維座標
-    Division();         //除法與驗算
+    //Division();         //除法與驗算
+    
 }
