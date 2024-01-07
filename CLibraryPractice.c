@@ -384,6 +384,41 @@ void printArticle(){
     }
     fclose(fpread);
 }
+//int remove(const char *filename) 複製文件後，刪除舊文件
+void deletOldFile(){
+
+    int ret;
+    char fileName[100];
+    printf("Enter the file name to open.\n");
+    scanf("%s", fileName);
+    
+    FILE *fpread; //讀的文件
+    fpread = fopen(fileName,"r");  //可以直接用陣列名稱const char *filename
+    char strRead[200];
+
+    FILE *fpWrite; //寫入的文件
+    fpWrite = fopen ("copyArticle.txt", "w+");
+
+    if(fpread == NULL) 
+        perror("Error: ");
+    while(1)
+    {
+        if( feof(fpread) )
+            break ;
+
+        if( fgets (strRead, 200, fpread)!=NULL ) 
+            fprintf(fpWrite, "%s", strRead);
+    }
+    fclose(fpread);
+    fclose(fpWrite);
+
+    ret = remove(fileName);
+    if(ret == 0) 
+        printf("%s file has been deleted.",fileName);
+    else 
+        printf("ERROR: %s file cna't be deleted.",fileName);
+
+}
 
 /*------------stdint.h--------------*/
 //無符號整數 指定 巨集處理整數大小(維基修改)
@@ -916,6 +951,7 @@ void main(){
     //readFileCountWords();//開完建檔計算英文字數(scanf輸入開啟的檔名)
     //readAndWrite();     //讀檔案並逐行寫入新檔案(scanf輸入開啟的檔名)
     //printArticle();     //列印出文件(scanf輸入開啟的檔名)
+    //deletOldFile();     //複製文件後，刪除舊文件(scanf輸入開啟的檔名)
     //RandWByCharacter(); //讀檔案，逐個字符寫入新檔案(%c中文字會變亂碼)
     //uintSize();         //無符號整數 指定 巨集處理整數大小
     //intMaxLeast();      //整數常量巨集(維基修改),印出值
@@ -923,10 +959,10 @@ void main(){
     //intPtr();           //指標的整數型態 (維基修改),印出值
     //intSize();          //有符號整數(維基修改),印出值
     //compareSpeed();     //比較同一篇文章 逐行or逐字元 寫入檔案執行速度(scanf輸入開啟的檔名)
-    //starOnText();       //將檔案每行前兩個文字覆蓋 "@@""
+    //starOnText();       //將檔案每行前兩個文字覆蓋 "@@"
     //textOnspace();      //將句子搜尋關鍵字並覆蓋space
     //findAccount();      //輸入你的信箱，會輸出你的帳號 by strrchr()
-    //compareTwofile();   //開啟兩文件比較文字內容是否全相等
+    //compareTwofile();   //開啟兩文件比較文字內容是否全相等(scanf輸入開啟的檔名)
     //findMail();         //找信箱的帳號 by strncpy()
     //currentTime();      //顯示現在時間，並將年修改到前面
     //CMTtime();          //CMT時間 台灣美國倫敦
