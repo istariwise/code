@@ -837,6 +837,34 @@ void findMail()
     printf("%s",dest);
 }
 
+//size_t strlen(const char *str) //將字串轉整數 再將單個數 位階分開
+void separateInt(){
+    char coef[11];
+    char *endptr;
+
+    long int num;
+    double before,after,mod1,mod2,minus;
+    char n;
+
+    printf("輸入10位以內之任意數字\n");
+    scanf("%s",coef);
+
+    num = strtol(coef, &endptr, 10);
+    double num2 = (double)num;
+
+    printf("已轉成整數，並將各位階分開的數如下:\n");
+    for(int i=strlen(coef) ; i>0 ; i--)
+    {
+        before = pow(10 , i);       //將常整數 每個位階分開,atoi無法使用的方法
+        after = pow(10 , i-1);
+        mod1 = fmod( num2 , before );
+        mod2 = fmod( num2 , after );
+        minus = (mod1 - mod2) / pow(10 , i-1);
+        n = (char)minus;
+        printf("%d\n",n);
+    }
+}
+
 /*------------time.h--------------*/
 //time_t time(time_t *seconds) 文字加亂碼
 void mash(){
@@ -988,5 +1016,7 @@ void main(){
     char str[10];       //整數轉字串，輸入(空字串，整數)。char * int2string(char * str , int num)
     int2string(str ,123);
     */
+
+    //separateInt();    //將字串轉整數 再將個十百千萬等..數位階分開
 
 }
