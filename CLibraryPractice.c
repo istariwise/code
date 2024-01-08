@@ -420,6 +420,16 @@ void deletOldFile(){
 
 }
 
+//int sprintf(char *str, const char *format, ...) 整數轉字串，回傳字串
+char * int2string(char * str , int num)
+{
+
+    sprintf(str, "Transfer is :%d", num);
+    puts(str);
+
+    return str;
+}
+
 /*------------stdint.h--------------*/
 //無符號整數 指定 巨集處理整數大小(維基修改)
 void uintSize(){
@@ -973,4 +983,10 @@ void main(){
     //gradeAvg();         //計算班級成績的平均數
     //str16ToInt();       //16進位 字串轉 長整數
     //command();          //操作命令題字元 輸入指令
+
+    /*
+    char str[10];       //整數轉字串，輸入(空字串，整數)。char * int2string(char * str , int num)
+    int2string(str ,123);
+    */
+
 }
