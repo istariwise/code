@@ -5,7 +5,7 @@
 #include <string.h>
 
 //i是第i位階數,j=0正數,n是係數
-int printx(int i,int j, char n){
+int printx(int i,int j, char n, char check){
 
     char sign[]="+-";
 
@@ -13,12 +13,34 @@ int printx(int i,int j, char n){
         return 0;
     else
     {
-        if(i == 0)
+        if(check ==1)
+        {
+            if(i == 0)
+            printf("%d",n);
+            if(i == 1)
+                if(n==1)
+                    printf("x ");
+                else
+                    printf("%dx ",n);
+            if(i > 1)
+                printf("x^%d ",i);
+            else
+                printf("%dx^%d ",n,i);
+        }else
+        {
+            if(i == 0)
             printf("%c %d",sign[j],n);
-        if(i == 1)
-            printf("%c %dx ",sign[j],n);
-        if(i > 1)
-            printf("%c %dx^%d ",sign[j],n,i);   
+            if(i == 1)
+                if(n == 1)
+                    printf("%c x ",sign[j]);
+                else
+                    printf("%c %dx ",sign[j],n);
+            if(i > 1)
+                if(n == 1)
+                    printf("%c x^%d ",sign[j],i); 
+                else
+                    printf("%c %dx^%d ",sign[j],n,i);
+        }  
     }
 return 0;
 }
@@ -46,22 +68,26 @@ void main(){
     long int num;
     double minus,num2;
     char n;
+    char check=0;
     
         int i=8;
         while(i>=0)
         {
             memset(str, '\0', sizeof(str));
             scanf("%s",str);
+            
             if(str[0] == '-')
             {
                 for(int k=1 ; k<strlen(str) ; k++)
                     coef_1[k-1] = str[k];
 
                 n = findCoef(coef_1, strlen(coef_1));
-                printx(i,1,n);
+                printx(i,1,n,check);
             }else{
                 n = findCoef(str, strlen(str));
-                printx(i,0,n);
+                if(n !=0)
+                    check++;
+                printx(i,0,n,check);
             }
 
         i--;
