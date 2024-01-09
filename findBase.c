@@ -22,7 +22,7 @@ void main(){
     int cal;
    
 
-while(scanf("%s",str) != EOF){
+    scanf("%s",str);
 
     memset(trf, '\0', sizeof(trf));
 
@@ -97,5 +97,4 @@ while(scanf("%s",str) != EOF){
         }
     }
 
-}
 }
