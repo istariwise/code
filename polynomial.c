@@ -69,7 +69,8 @@ void main(){
     double minus,num2;
     char n;
     char check=0;
-    
+
+        printf("Please enter 9 numbers, separated by spaces.ex:-1 25 -62 0 0 0 125 0 -1\n");
         int i=8;
         while(i>=0)
         {
