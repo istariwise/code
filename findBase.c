@@ -10,8 +10,8 @@ void main(){
 
     char base;
     int quot,rem,tran; //x,商,餘數,轉換成10進位
-    char str[10]={'\0'};
-    char len = 30;
+    char str[10]="123A";
+    char const len = 30;
     char trf[len];
     char max;
     char plus;
@@ -20,11 +20,26 @@ void main(){
     char j = 0;     //次方數
     int value;
     int cal;
+
+do{
    
-
-    scanf("%s",str);
-
+//initialize初始化
+    base = 0;
+    quot = 0;
+    rem = 0;
+    tran = 0;
     memset(trf, '\0', sizeof(trf));
+    memset(str, '\0', sizeof(str));
+    max = 0;
+    plus = 0;
+    k = 0;
+    least = 0;
+    j = 0;     //次方數
+    value = 0;
+    cal = 0;
+
+    printf("輸入一個數字去找到可能是幾進位。\n");
+    scanf("%s",str);
 
 //取最大值
     max = str[0];
@@ -43,8 +58,8 @@ void main(){
         base = max+1 - 48;  //是數字都是字符,要-48
 
 //困擾是val中A以上數換成10進位整除base or val轉換成base數值後被整除?(只要個位數整除即可)
-    plus = len - strlen(str);
-    for(int i=strlen(str)-1 ; i>=0 ; i--)   //轉換成10進位
+    plus = len - strlen(str);               //因trf要倒敘存入str值
+    for(int i=strlen(str)-1 ; i>=0 ; i--)   //將帶有A-Z&a-z轉換成10進位
     {
         if(isdigit(str[i]))     //是數字都是字符,要-48
         {
@@ -96,5 +111,5 @@ void main(){
                 continue;
         }
     }
-
+}while(1);
 }
